@@ -1,0 +1,870 @@
+#LyX file created by tex2lyx 2.0.6
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+
+\usepackage[spanish]{babel}
+\usepackage{amsfonts}
+
+\author{Grupo Los Walo}
+\title{Algoritmo de Búsqueda Indexada}
+\date{19 de julio de 2013}
+
+
+
+\end_preamble
+\use_default_options false
+\language spanish
+\language_package default
+\inputencoding utf8
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\paperfontsize 11
+\spacing single
+\use_hyperref 1
+\pdf_bookmarks 1
+\pdf_bookmarksnumbered 0
+\pdf_bookmarksopen 0
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks 0
+\pdf_pdfborder 0
+\pdf_colorlinks 0
+\pdf_backref section
+\pdf_pdfusetitle 1
+\papersize a4paper
+\use_geometry true
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+maketitle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+\lang spanish
+
+En este articulo se enuncian una descripción del método,las principales características que tiene el método de búsqueda indexada, sus ventajas , desventajas y algunas aplicaciones que operan con el método mencionado. 
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Introducción
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Los métodos de búsqueda nos permiten recuperar información de un vector o un archivo, que contenga una lista de datos. Por ejemplo se puede obtener el nombre y el número telefónico de nuestra agenda de contactos o la nota obtenida por un alumno en la lista de un curso. Cuando se realizan búsquedas sobre vectores, se desea es encontrar la posición que ocupa el elemento buscado dentro de la lista de elementos que contiene el vector. Para la búsqueda de información en archivos es necesario realizar la búsqueda a partir de un campo clave dentro del archivo. Existen diferentes métodos de búsqueda y se puede determinar con cual método trabajar dependiendo de la cantidad de elementos que existan en el vector o la organización de dichos elementos. A continuación se describirá el método búsqueda indexada.
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Estudio del arte
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Los algoritmos de búsqueda aparecen por los años 1968, con el algoritmo de búsqueda A (pronunciado "A asterisco" o "A estrella") se clasifica dentro de los algoritmos de búsqueda en grafos. Presentado por por Peter E. Hart, Nils J. Nilsson y Bertram Raphael, el algoritmo A* la ruta de menor coste entre dos puntos siempre y cuando se cumplan una serie de condiciones.Está clasificado dentro de los algoritmos de búsqueda en grafos ya que tiene la necesidad de dar a los mecanismos robóticos, vehiculares o virtuales un sistema de navegación autónomo. Luego van apareciendo otros algoritmos, aparece un algoritmo llamado algoritmo de búsqueda de cadenas Boyer-Moore es un particularmente eficiente algoritmo de búsqueda de cadenas, y ha sido el punto de referencia estándar para la literatura de búsqueda de cadenas. Fue desarrollado por Bob Boyer y J Strother Moore en 1977. El algoritmo pre procesa la cadena objetivo (clave) que está siendo buscada, pero no en la cadena en que se busca (no como algunos algoritmos que procesan la cadena en que se busca y pueden entonces amortizar el coste del pre procesamiento mediante búsqueda repetida). El tiempo de ejecución del algoritmo Boyer-Moore, aunque es lineal en el tamaño de la cadena que esta siendo buscada, puede tener un factor significativamente más bajo que muchos otros algoritmos de búsqueda: no necesita comprobar cada carácter de la cadena que es buscada, puesto que salta algunos de ellos. Generalmente el algoritmo es más rápido cuanto más grande es la clave que es buscada, usa la información conseguida desde un intento para descartar tantas posiciones del texto como sean posibles en donde la cadena no coincida.
+\begin_inset Newline newline
+\end_inset
+
+ Y así entre algunos hasta llegar a los que son mas conocidos como búsqueda secuencial , secuencial indexada,búsqueda binaria,hash(Ver Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figmet"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename clasif.png
+	scale 50
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Standard
+
+\lang spanish
+
+Clasificación de los métodos de búsqueda
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "figmet"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Descripción de la búsqueda indexada
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+En este modo de organización, al fichero le acompaña un fichero de índice que tiene la función de permitir el acceso directo a los registros del fichero de datos. El índice se puede organizar de diversas formas, las más típicas son: secuencial, multinivel y árbol. A través del índice podremos procesar un fichero de forma secuencial o de forma directa según la clave de indexación, y esto independientemente de cómo esté organizado el fichero por sí mismo. El índice debe estar organizado en función de alguno de los campos de los registros de datos. Se pueden tener tantos índices como se quiera variando la clave (o campo) que se emplee. El índice está formado por registros (entradas) que contienen:
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Clave de organización. 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Puntero(s) al fichero de datos, en concreto al registro que corresponda. 
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Técnica de búsqueda secuencial indexada
+\end_layout
+
+\begin_layout Subsection
+
+\lang spanish
+
+Descripción de la técnica
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Funciona de la siguiente manera:
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+ Se reserva una taba auxiliar llamada índice además del archivo ordenado mismo. Cada elemento en el índice consta de una llave kindex y un apuntador al registro en el archivo que corresponde a kindex. Los elementos en el índice al igual que los elementos en el archivo, deben estar ordenados en la llave. Si el índice es de un octavo del tamaño del archivo, se representa en el índice cada octavo que registra el archivo(Ver Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figIndex"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+
+\lang spanish
+
+Indexacion y búsqueda(Accesos a datos)
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Para aumentar la eficiencia de acceso e indexación se diseñan estructuras adicionales asociadas a los archivos que mantienen la información de las bases de datos.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Existen distintas formas generales para la indexación y búsqueda. Cada una de las técnicas tiene ventajas y desventajas comparativas y deben evaluarse de a cuerdo a:
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+tiempo de acceso a datos. 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+tiempo de inserciónn de datos. 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+tiempo de eliminación de datos. 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+espacio extra necesario para la indexación de más terminología. 
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+La idea de crear indices y realizar su posterior indexación es la misma que en el caso de un índice de un libro, en este existe un indice alfabético y permite ir directamente a la página asociada con cada entrada del índice, al igual existen varias bibliotecas que mantienen fichas en las cuales la indexación es realizada por tema, título y autor, que entregan la información relacionada acerca de en donde se encuentra, osea el estante, el número del libro para ser encontrarlo fácilmente.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+El índice define los atributos que tiene cada uno de los términos para asociarla a una relación de contenidos y da valor a todos lo bloques de información que contienen dicho término.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Los valores en la indexación se mantienen con cierto orden de modo que se pueda realizar la búsqueda rapidamente.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Existen entonces distintas técnicas de indexación con distintas características.
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Indexación por árboles de términos 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Indexación por archivos de términos secuenciales 
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename Index.png
+	scale 70
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Standard
+
+\lang spanish
+
+Ilustración de indice con su tabla principal
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "figIndex"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Si el índice comienza a crecer tanto que se vuelve ineficaz se puede usar un índice secundario que funciona casi de la misma forma que el índice principal, solo que apunta a este, no a la tabla principal la búsqueda empieza con una exploración por el índice secundario; esto nos lleva a un subarreglo en el índice principal; después el procesamiento continua normalmente. Un ejemplo de lo anterior es la siguiente figura:(Ver Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figIndex2"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Graphics 
+	filename Index2.png
+	scale 70
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Standard
+
+\lang spanish
+
+Uso de indice secundario cuando crece mucho el indice primario
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "figIndex2"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\lang spanish
+
+Indexacion por acceso secuencial
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Es uno de los esquemas de indexación mas antiguos que existen para realizar una búsqueda ordenada. Este tipo de indexación expone el ordenamiento secuencial y que por lo tanto tendrán una llave de búsqueda primaria. Es por lo tanto que en este aparte caben destacar dos tipos de índices:
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Indice denso: Este indice se refiere cuando el archivo índice contiene la dirección de cada registro de la llave. 
+\end_layout
+
+\begin_layout Itemize
+
+\lang spanish
+
+Indice disperso : Este indice se refiere cuando el archivo índice contiene la dirección de cada registro de la llave. 
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Resulta entonces que entre más pequeño sea el índice la indexación y búsqueda resultara más rápida, dado que la terminología utilizada sera la misma porque se realizan asociaciones dentro del motor de búsqueda.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Sin importar cuál sea la forma de indexación siempre se debe actualizar todos los índices cada vez que se inserta o elimina una palabra (término).
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Cabe destacar que entre más datos tengan los contenidos más cuesta acceder, manipular y no facilita la búsqueda de la información.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+La indexación sera ineficiente si se realizan muchas inserciones o eliminaciones.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Se pueden indexar atributos a aquellos términos que no se encuentran secuencialmente ordenados, como palabras compuestas utilizando etiquetas que direccionen la búsqueda y recuperación de información.
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Ventajas y desventajas de la búsqueda indexada
+\end_layout
+
+\begin_layout Section*
+
+\lang spanish
+
+Ventajas
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Permite procesar el archivo secuencialmente por orden lógico y también procesarlo al azar. La ventaja real del método secuencial indexado es que los elementos en la tabla pueden ser examinados en forma secuencial si todos los registros en el archivo deben ser accesados, pero sin embargo, el tiempo de búsqueda para algún elemento en particular se reduce considerablemente. La búsqueda secuencial se realiza en la tabla de índices que es más pequeña en lugar de la tabla más grande. Una vez que se ha encontrado un índice correcto, se hace una segunda búsqueda secuencial únicamente en la parte reducida de la tabla que contiene los registros. La organización secuencial indexada es conveniente para archivos con mediana volatilidad, actividad variable y tamaño relativamente estable. Las eliminaciones de una tabla secuencial indexada se pueden hacer fácilmente mediante la asignación de banderas a las entradas que son eliminadas. Durante la búsqueda secuencial a través de la tabla, se ignoran las entradas que han sido eliminadas.
+\end_layout
+
+\begin_layout Section*
+
+\lang spanish
+
+Desventajas
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Implica un aumento en la cantidad de espacio requerida, porque se ocupa un índice y “se pone a un lado además del fichero clasificado a sí mismo”. La inserción en una tabla secuencial indexada es un poco más difícil debido a que puede qe no exista espacio entre dos entradas en la tabla, siendo necesario mover un gran número de elementos en la tabla. El uso de una lista ligada (índice) da una gran sobrecarga de espacio y tiempo para los apuntadores que se utilizan en la búsqueda de registros. Los registros deben ser de longitud fija. El archivo debe estar soportado por una memoria de masa tal como el disco; no se utiliza en cinta magnética. A veces todo el archivo debe estar presente en línea.
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Reglas de indexacion
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+La regla principal a respetar es utilizar un número limitado de palabras clave (ni demasiadas, ni demasiado pocas). Según el tipo de información que se quiera describir, se pueden necesitar varias palabras clave, pero no muchas. 
+\begin_inset Newline newline
+\end_inset
+
+ Cuantas menos palabras clave se usen, más relevantes son. Este es el modo en que los motores de búsqueda tienen en cuenta a la hora de la relevancia en los términos y por ende la importancia que toma cada uno a la hora de la búsqueda.También es importante el orden de las palabras clave y ordenarlas correctamente. 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+ La palabra clave más relevante debe ir primero. Determinará el lugar en la página de resultados. Si la primera palabra clave no es la más pertinente, el contenido puede no aparecer cuando es necesitado.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Se deben indexar los términos en un solo idioma, ya que el motor de búsqueda traduce automáticamente todas las palabras clave en todos los idiomas disponibles en el sitio web. Si se utilizan idiomas diferentes en la indexación, el archivo no puede ser tenido en cuenta para búsquedas específicas. La precisión es también un punto importante de la indexación, y se deben utilizar sólo palabras clave que describan el contenido. No se deben encontrar todos los sinónimos posibles para un solo concepto, y está absolutamente prohibido utilizar palabras clave que no están ligadas directamente al concepto por representar.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Para tener una buena indexación también se deben respetar algunas pautas semánticas que ayudarán a que el contenido aparezca en el lugar correcto en el momento oportuno.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Las palabras compuestas serán escritas de una vez (en la misma línea), especialmente cuando el significado de las palabras tomadas separadamente sea muy diferente de la palabra compuesta.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+El uso del plural será limitado a los términos que representan efectivamente varias veces el sujeto. Es lo mismo para singular; no se debe poner la palabra clave en singular si el sujeto es representado varias veces.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Cada una de estas especificaciones son importantes porque determinarán la visibilidad del contenido y su potencial o relevancia. Si no se respetan ciertas indicaciones la relevancia de las palabras clave disminuirá y no se adecuarán a los hábitos de búsqueda de los usuarios.
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Cuando un usuario busca un término o concepto, él ya sabe lo que quiere hacer. Generalmente escribe una palabra clave representativa, por eso es importante ser muy preciso durante la indexación.
+\end_layout
+
+\begin_layout Section
+
+\lang spanish
+
+Principales aplicaciones
+\end_layout
+
+\begin_layout Standard
+
+\lang spanish
+
+Un uso en la cual esta búsqueda se aplica, es donde se presenta el ingreso de datos (registros) sin ningún tipo de orden especifico; pero en cada determinado momento su campo llave es almacenado en un índice, en el cual esas llaves están ordenadas de menor a mayor o de mayor a menor dependiendo el uso que se le de. De esta manera, para agilizar la búsqueda de un registro en particular se acceso a ese registro por medio de su campo llave almacenado en el índice. Un ejemplo de nuestra vida diaria y donde se aplica esta búsqueda es en un negocio mediano (negocio de carnes frías, refaccionaria), ya que aquí se necesita una búsqueda eficiente con una sola clave de acceso y otorgándonos la información requerida.
+\end_layout
+
+\begin_layout Bibliography
+
+\lang spanish
+
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "Wikipedia"
+
+\end_inset
+
+ Wikipedia: 
+\begin_inset Flex Flex:URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://es.wikipedia.org/wiki/Indexaci
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%C3%B3n}
+\end_layout
+
+\begin_layout Standard
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "novella"
+
+\end_inset
+
+ novella: 
+\begin_inset Flex Flex:URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://novella.mhhe.com/sites/dl/free/844814077x/619434/A06.pdf
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label ""
+key "trevinca"
+
+\end_inset
+
+ trevinca: 
+\begin_inset Flex Flex:URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://trevinca.ei.uvigo.es/
+\begin_inset space ~
+
+\end_inset
+
+rlaza/teoria/Tema2Transparencias.pdf
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+thebibliography
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+document
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -835,25 +835,44 @@ status open
 \end_layout
 
 \begin_layout Chapter
-Conclusión
-\end_layout
-
-\begin_layout Section
-Ventajas y desventajas de la búsqueda indexada
-\end_layout
-
-\begin_layout Section*
-Ventajas
+Calculos de tiempo
 \end_layout
 
 \begin_layout Standard
-Permite procesar el archivo secuencialmente por orden lógico y también procesarl
-o al azar.
+\begin_inset Graphics
+	filename Tiempos.jpg
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+Fig 8: Calculos de tiempo con programa en Ruby
+\end_layout
+
+\begin_layout Chapter
+Conclusión
+\end_layout
+
+\begin_layout Standard
+Para terminar, el algoritmo de busqueda indexada implica un aumento en la
+ cantidad de espacio requerida, porque se ocupa un índice y se pone a un
+ lado además del fichero clasificado a sí mismo”.
+ La inserción en una tabla secuencial indexada es un poco más difícil debido
+ a que puede que no exista espacio entre dos entradas en la tabla, siendo
+ necesario mover un gran número de elementos en la tabla.
+ El uso de una lista ligada indice da una gran sobrecarga de espacio y tiempo
+ para los apuntadores que se utilizan en la búsqueda de registros.
+ Los registros deben ser de longitud fija.
+ Pero tambien tiene buenas caracteristicas, ya sea que permite procesar
+ el archivo secuencialmente por orden lógico y también procesarlo al azar.
  La ventaja real del método secuencial indexado es que los elementos en
  la tabla pueden ser examinados en forma secuencial si todos los registros
  en el archivo deben ser accesados, pero sin embargo, el tiempo de búsqueda
  para algún elemento en particular se reduce considerablemente.
- La búsqueda secuencial se realiza en la tabla de índices que es más pequeña
+ Tambien esta busqueda se realiza en la tabla de índices que es más pequeña
  en lugar de la tabla más grande.
  Una vez que se ha encontrado un índice correcto, se hace una segunda búsqueda
  secuencial únicamente en la parte reducida de la tabla que contiene los
@@ -866,22 +885,62 @@ o al azar.
  que han sido eliminadas.
 \end_layout
 
-\begin_layout Section*
-Desventajas
+\begin_layout Chapter
+Bibliografía
+\end_layout
+
+\begin_layout Itemize
+Sistema Gestion de Archivos
 \end_layout
 
 \begin_layout Standard
-Implica un aumento en la cantidad de espacio requerida, porque se ocupa
- un índice y “se pone a un lado además del fichero clasificado a sí mismo”.
- La inserción en una tabla secuencial indexada es un poco más difícil debido
- a que puede que no exista espacio entre dos entradas en la tabla, siendo
- necesario mover un gran número de elementos en la tabla.
- El uso de una lista ligada (índice) da una gran sobrecarga de espacio y
- tiempo para los apuntadores que se utilizan en la búsqueda de registros.
- Los registros deben ser de longitud fija.
- El archivo debe estar soportado por una memoria de masa tal como el disco;
- no se utiliza en cinta magnética.
- A veces todo el archivo debe estar presente en línea.
+http://www.slideshare.net/MateusVeronica/sistemas-de-gestin-de-archivos
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Algoritmo de búsqueda y ordenamiento
+\end_layout
+
+\begin_layout Standard
+http://www.slideshare.net/MateusVeronica/sistemas-de-gestin-de-archivos 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Algoritmo de búsqueda y ordenamiento
+\end_layout
+
+\begin_layout Standard
+http://novella.mhhe.com/sites/dl/free/844814077x/619434/A06.pdf
 \end_layout
 
 \end_body

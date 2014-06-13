@@ -1,6 +1,17 @@
 #include<iostream>
 #include<windows.h> //para system
-#define TAM 1000//primer caso para 1000
+#define TAM 1000
+#include<time.h>
+#define INDEXADO 100
+#define CANT_INDICES 10
+/* 
+para modificar la cantidad de datos con los que trabaja el algoritmo debemos modificar la variable TAM
+para modificar el rango de indexacion debemos modificar la variable INDEXADO
+para modificar la cantidad de indices se debe modificar CANT_INDICES
+estos tres deben tener relacion para que el algoritmo no se caiga
+por ejemplo: si se quiere trabajar con 50 datos con una cantida de 10 indices el rango debe ser 50/10 de lo contrario el algoritmo se caera
+
+*/
 using namespace std;
 void LlenarArreglo(int arreglo[])
 {
@@ -119,16 +130,18 @@ void BuscarNumero(int arreglo[], int contenido[], int posiciones[],int buscado)
 int main ()
 {
     int arreglo[TAM];
-    int i,contenido[100],j=0,posiciones[100],buscado;
+    int i,contenido[CANT_INDICES],j=0,posiciones[INDEXADO],buscado;
     LlenarArreglo(arreglo);
     MostrarArreglo(arreglo);
-  
+    cout<<"\n Ingrese numero que desea buscar"<<endl;
+    cin>>buscado;
+    clock_t start = clock();
     quick_sort(arreglo,TAM); //para ordenar arreglo inicial
     /*cout<<"el arreglo ordenado es "<<endl; //comprobar que el arreglo este ordenado (pruebas)
     MostrarArreglo(arreglo);*/
     
     //se divide el arreglo en la cantidad de partes que se estime conveniente en este caso en 100 partes
-    for (i=0;i<TAM;i=i+10)//se guardan los contenidos de los indices que nos van a servir para hacer la busqueda
+    for (i=0;i<TAM;i=i+INDEXADO)//se guardan los contenidos de los indices que nos van a servir para hacer la busqueda
     {
         contenido[j] = arreglo[i]; //guardando el contenido 
         j++;
@@ -136,16 +149,19 @@ int main ()
     //prueba para mostrar el arreglo de indices
     //cout<<"El arreglo de indices es"<<endl; //mostrar el arreglo de indices (pruebas)
     j=0;
-    for(i=0;i<100;i++) //guardamos las posiciones que nos serviran para hacer la busqueda
+    for(i=0;i<10;i++) //guardamos las posiciones que nos serviran para hacer la busqueda
     {
         posiciones[i] = j; //guardar las posiciones en caso de cualquier cosa
-        //cout<<"posicion"<<ends<<j<<ends<<contenido[i]<<endl;
-        j=j+10;
+        cout<<"posicion"<<ends<<j<<ends<<contenido[i]<<endl;
+        j=j+100;
         /*Tener claro que la posicion 0 del vector de indices es la posicion 0 del original, la posicion
-          1 del vector de indices es la posicion 11 del vector original y asÃ­ ... */
+          1 del vector de indices es la posicion 11 del vector original y así ... */
     }
-    cout<<"\n Ingrese numero que desea buscar"<<endl;
-    cin>>buscado;
+    //cout<<"\n Ingrese numero que desea buscar"<<endl;
+    //cin>>buscado;
+    
+    //clock_t start = clock(); // inicia el contador de tiempo para ver cuanto demora la busqueda
     BuscarNumero(arreglo,contenido,posiciones,buscado);
+    cout<<"Tiempo transcurrido es:"<<ends<<((double)clock()-start)/CLOCKS_PER_SEC<<endl; //entrega el tiempo que demoro
     system ("pause");
 }
